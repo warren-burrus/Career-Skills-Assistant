@@ -96,9 +96,8 @@ shows its sources with matched terms.
 
 ## Future improvements
 
-1. Hybrid retrieval (embeddings + keywords) and skill synonyms.
-2. Real identity (SSO), audit logging of every tool call and security event.
-3. Streaming responses and trimming long conversation history.
+1. Vector-based/RAG retrieval (embeddings + keywords).
+2. Real identity (SSO).
 
 ## Changelog
 
