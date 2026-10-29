@@ -62,9 +62,7 @@ Tests run on a temporary copy of `data/`, so they never touch your file. (`CAREE
 another data directory.)
 
 **Privacy** - The system prompt separates **mentioning** a person ("I like Tony") from **asking for their
-   information** ("What are Tony's skills?"). Only the latter is declined, and only that part: the rest of the message is
-   still answered. It also forbids answering from general knowledge, which matters here because the sample names
-   match famous fictional characters.
+   information** ("What are Tony's skills?").
 
 **Login** - Only an exact full-name match is accepted, ignoring case (and leading/trailing/extra spaces). A first or last name
 alone, a partial name, or reversed order is rejected.
