@@ -27,7 +27,7 @@ You: What are Tony's skills?               # politely declined
 You: ... I like Tony                       # NOT declined; mentioning a name is fine
 ```
 
-### What you see
+### Output
 
 For a recommendation request the console shows (1) a friendly **plain-text** message, (2) the recommendations as
 **JSON only** (`skills`, `courses`, `roles`, each with `reason` and `sources`), and (3) a plain-text question offering to
@@ -56,35 +56,23 @@ career_assistant/
 tests/run_tests.py    10 test cases and a runner
 ```
 
-## Tools the model can call
+## Tools calls
 
 `get_employee_profile`, `get_skill_taxonomy`, `search_jobs`, `search_courses`, `submit_recommendations`,
 `offer_enrollment`, `enroll_in_course`.
 
 ## Design choices
 
-**Enrollment (propose, then confirm).** The model never enrolls on its own. To offer a course it calls
+**Enrollment (propose, then confirm).** The model never enrolls on its own. To offer a course, it first calls
 `offer_enrollment`, which has no side effects and records the offer. On the employee's next message, *application code*
-decides whether it is a clear agreement (`is_affirmative`: short, no question mark, no hedge or negation, so
-"yes", "Yes, please enroll me in that one" and "sure, go ahead" count, while "yes but tell me more first" does not).
-If it is, the course ids from that offer become the session's one-turn `consent`, and the model is told so in the
-**system prompt** (a trusted "SESSION STATE" block), not in a pretend "[system]" message inside the chat. Not every model
-supports forcing a tool call (`tool_choice`), so the code instead *verifies*: if the model replies without calling
-`enroll_in_course`, it retries once with a firmer reminder, and if that also fails it says so honestly and keeps the offer
-open. The tool itself refuses anything not in `consent`: a course that wasn't offered, a second use, or any text the
-employee types that merely claims confirmation. After
-recommendations, the exact text the employee saw (including the offer) is added to the conversation history, so the
-model knows what "yes" refers to.
+decides whether it is a clear agreement. If it is, the model then calls `enroll_in_course`. This two-step enrollment process
+uses a clearly stated confirmation to avoid enrolling the employee in the wrong course, and to ensure multiple enrollments
+don't accidentally take place at a time.
 
-**Privacy has three layers, and none of them blocks harmless mentions of a name.**
-1. *Code:* no tool takes an employee identifier. `get_employee_profile` always returns the signed-in employee's own
-   record, so the model cannot read anyone else's data even if it tries.
-2. *Model instructions:* the system prompt separates **mentioning** a person ("I like Tony") from **asking for their
+**Privacy.** The system prompt separates **mentioning** a person ("I like Tony") from **asking for their
    information** ("What are Tony's skills?"). Only the latter is declined, and only that part: the rest of the message is
    still answered. It also forbids answering from general knowledge, which matters here because the sample names
    match famous fictional characters.
-3. *Hint:* if the message contains another employee's first or last name, a privacy note is added to the model's trusted
-   state as a reminder. It is a hint, never a block.
 
 **Login.** Only an exact full-name match is accepted, ignoring case (and leading/trailing/extra spaces). A first or last name
 alone, a partial name, or reversed order is rejected.
@@ -94,36 +82,35 @@ sentences are removed and logged; only cleaned text is indexed or shown to the m
 "untrusted data" notice; and the model can only recommend items that were actually retrieved that turn. The employee sees
 a `Note:` line if a retrieved item had to be cleaned.
 
-**Structured output.** The model submits through `submit_recommendations`, supplying only ids/names, reasons and the
-friendly message. The code adds titles and provenance (matched terms and scores from the real search hits), so
-sources can't be invented. Validation checks exact counts, valid ids, retrieved-this-turn, no completed or enrolled
+**Structured output.** Validation checks exact counts, valid ids, retrieved-this-turn, no completed or enrolled
 courses, no skill the employee is already advanced in, coherence (each course teaches, and each role requires, a recommended
-skill; each skill is needed by a recommended role), and that the message is plain text. Errors go back to the model to fix. The
-JSON is re-parsed strictly before display.
+skill; each skill is needed by a recommended role), and that the message is plain text. Errors go back to the model to fix.
 
 **Retrieval.** A small dependency-free keyword index (field-weighted, BM25-style, light stemming). Each recommendation
 shows its sources with matched terms.
 
 ## Assumptions
 
-1. Sign-in is simulated by typing a name; real deployments would bind identity from SSO the same way (to the session, never to a model-supplied argument).
-2. Skill levels are basic / intermediate / advanced; a gap is a missing or basic skill relative to a target role.
-3. Completed or currently-enrolled courses are never recommended or offered.
-4. The injected posting is treated as hostile *content*, not deleted: it remains searchable with the injected text removed.
-5. "The employee agrees" means a short, unhedged affirmative reply to an offer made in the assistant's previous message. An offer lapses after one reply.
+1. The "employee" dataset will also include an "enrolled courses" attribute to track all the agent's recommended courses that the employee agrees to enroll in.
+2. Sign-in is simulated by typing a name; real deployments would bind identity from SSO the same way (to the session, never to a model-supplied argument).
+3. Skill levels are basic / intermediate / advanced; a gap is a missing or basic skill relative to a target role.
+4. Completed or currently-enrolled courses are never recommended or offered.
+5. The injected posting is treated as hostile *content*, not deleted: it remains searchable with the injected text removed.
 6. One employee per CLI process; data is fictional and tiny.
 
-## Known limitations
+## Limitations
 
 - The privacy decline depends on the model's judgment (backed by the tool-level guarantee that no other employee's data is reachable). A model could still, in principle, speculate or answer from general knowledge; test 8 probes this.
 - Consent detection is deliberately conservative: unusual agreement phrasings ("that'd be great") won't count and the assistant will just ask again. A reply with a question mark never counts.
 - Keyword search only (no synonyms). Injection patterns are a deny-list. Enrollment is a local JSON write with no locking or real LMS call.
 
-## What I'd improve next
+## Future improvements
 
-1. Run and tune against the live model; add a model-graded eval set for recommendation quality and refusals.
-2. Hybrid retrieval (embeddings + keywords) and skill synonyms.
-3. Real identity (SSO), audit logging of every tool call and security event.
-4. A classifier-based privacy and injection screen in addition to the prompt and sanitiser.
-5. Real LMS integration with idempotent enrollment, prerequisites, capacity and undo.
-6. Streaming responses and trimming long conversation history.
+1. Hybrid retrieval (embeddings + keywords) and skill synonyms.
+2. Real identity (SSO), audit logging of every tool call and security event.
+3. Streaming responses and trimming long conversation history.
+
+## Changelog
+
+1. Login step was accepting partial names (e.g., first name only) => Call `find_employee_by_name` in `sign_in` method.
+2. Privacy was too restrictive (e.g., rejected references to other names like "I like Tony") => Clarify system prompt.
