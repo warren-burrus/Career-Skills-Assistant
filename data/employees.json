@@ -1,0 +1,101 @@
+[
+  {
+    "id": "E001",
+    "name": "Peter Parker",
+    "current_role": "Customer Support Specialist",
+    "skills": [
+      {
+        "name": "Customer Support",
+        "level": "advanced"
+      },
+      {
+        "name": "Technical Writing",
+        "level": "intermediate"
+      },
+      {
+        "name": "Stakeholder Communication",
+        "level": "intermediate"
+      },
+      {
+        "name": "Project Management",
+        "level": "intermediate"
+      },
+      {
+        "name": "Agile Methods",
+        "level": "basic"
+      }
+    ],
+    "completed_courses": [
+      "C008"
+    ],
+    "enrolled_courses": [],
+    "career_interest": "Transition into product management"
+  },
+  {
+    "id": "E002",
+    "name": "Bruce Banner",
+    "current_role": "Data Analyst",
+    "skills": [
+      {
+        "name": "SQL",
+        "level": "intermediate"
+      },
+      {
+        "name": "Data Visualization",
+        "level": "intermediate"
+      },
+      {
+        "name": "Python",
+        "level": "basic"
+      },
+      {
+        "name": "Statistics",
+        "level": "basic"
+      },
+      {
+        "name": "Stakeholder Communication",
+        "level": "intermediate"
+      }
+    ],
+    "completed_courses": [
+      "C001",
+      "C005"
+    ],
+    "enrolled_courses": [],
+    "career_interest": "Move into machine learning and data science work"
+  },
+  {
+    "id": "E003",
+    "name": "Tony Stark",
+    "current_role": "Software Engineer",
+    "skills": [
+      {
+        "name": "Python",
+        "level": "advanced"
+      },
+      {
+        "name": "API Design",
+        "level": "advanced"
+      },
+      {
+        "name": "Cloud Computing",
+        "level": "basic"
+      },
+      {
+        "name": "Agile Methods",
+        "level": "intermediate"
+      },
+      {
+        "name": "SQL",
+        "level": "basic"
+      }
+    ],
+    "completed_courses": [
+      "C001"
+    ],
+    "enrolled_courses": [
+      "C006"
+    ],
+    "career_interest": "Become an engineering manager and lead a team"
+  }
+]

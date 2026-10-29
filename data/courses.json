@@ -1,0 +1,12 @@
+[
+  {"id": "C001", "title": "SQL Fundamentals for Analysts", "description": "Write SELECT queries, joins and aggregations against relational databases.", "skills_taught": ["SQL"], "level": "beginner", "duration_hours": 6},
+  {"id": "C002", "title": "Python for Data Analysis", "description": "Learn Python basics, notebooks and tabular data handling for everyday analysis.", "skills_taught": ["Python"], "level": "beginner", "duration_hours": 10},
+  {"id": "C003", "title": "Statistics for Decision Making", "description": "Probability, hypothesis testing and regression explained through business examples.", "skills_taught": ["Statistics"], "level": "intermediate", "duration_hours": 12},
+  {"id": "C004", "title": "Machine Learning Foundations", "description": "Build, validate and compare supervised models in Python, from features to evaluation.", "skills_taught": ["Machine Learning", "Python"], "level": "intermediate", "duration_hours": 16},
+  {"id": "C005", "title": "Data Visualization and Storytelling", "description": "Design dashboards and charts that make findings easy to act on.", "skills_taught": ["Data Visualization", "Stakeholder Communication"], "level": "beginner", "duration_hours": 5},
+  {"id": "C006", "title": "Cloud Fundamentals", "description": "Core cloud concepts: compute, storage, networking, deployment and cost basics.", "skills_taught": ["Cloud Computing"], "level": "beginner", "duration_hours": 8},
+  {"id": "C007", "title": "Leading Engineering Teams", "description": "Coaching, feedback, hiring and building trust as a first-time team lead.", "skills_taught": ["People Management", "Stakeholder Communication"], "level": "intermediate", "duration_hours": 10},
+  {"id": "C008", "title": "Project Management Practicals", "description": "Scoping, estimating, risk tracking and iterative delivery for small teams.", "skills_taught": ["Project Management", "Agile Methods"], "level": "beginner", "duration_hours": 8},
+  {"id": "C009", "title": "Product Management Essentials", "description": "Customer problems, roadmaps and prioritisation, plus how to run agile product teams.", "skills_taught": ["Product Strategy", "Agile Methods"], "level": "beginner", "duration_hours": 12},
+  {"id": "C010", "title": "User Research Methods", "description": "Plan and run interviews and surveys, and turn what you hear into clear findings for stakeholders.", "skills_taught": ["User Research", "Stakeholder Communication"], "level": "intermediate", "duration_hours": 9}
+]

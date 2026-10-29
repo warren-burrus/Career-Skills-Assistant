@@ -1,0 +1,17 @@
+[
+  {"id": "S01", "name": "SQL", "category": "Data", "description": "Query and shape relational data for reporting and analysis.", "roles_needing": ["J001"]},
+  {"id": "S02", "name": "Python", "category": "Technical", "description": "Write scripts and programs for data work and automation.", "roles_needing": ["J002"]},
+  {"id": "S03", "name": "Data Visualization", "category": "Data", "description": "Communicate patterns in data with clear charts and dashboards.", "roles_needing": ["J001"]},
+  {"id": "S04", "name": "Statistics", "category": "Data", "description": "Apply probability and inference to draw sound conclusions from data.", "roles_needing": ["J001", "J002"]},
+  {"id": "S05", "name": "Machine Learning", "category": "Data", "description": "Train, evaluate and deploy predictive models.", "roles_needing": ["J002"]},
+  {"id": "S06", "name": "Cloud Computing", "category": "Technical", "description": "Build and run workloads on cloud infrastructure.", "roles_needing": ["J002", "J004"]},
+  {"id": "S07", "name": "API Design", "category": "Technical", "description": "Design clear, versioned and secure service interfaces.", "roles_needing": ["J004"]},
+  {"id": "S08", "name": "Project Management", "category": "Delivery", "description": "Plan scope, schedule and risk to deliver work on time.", "roles_needing": ["J003", "J004", "J005"]},
+  {"id": "S09", "name": "People Management", "category": "Leadership", "description": "Hire, coach and support a team and give useful feedback.", "roles_needing": ["J004"]},
+  {"id": "S10", "name": "Stakeholder Communication", "category": "Communication", "description": "Explain work and trade-offs to non-specialists and leaders.", "roles_needing": ["J001", "J003", "J004", "J005"]},
+  {"id": "S11", "name": "Product Strategy", "category": "Product", "description": "Decide what to build and why, based on customer and business value.", "roles_needing": ["J003"]},
+  {"id": "S12", "name": "User Research", "category": "Product", "description": "Learn user needs through interviews, surveys and observation.", "roles_needing": ["J003"]},
+  {"id": "S13", "name": "Agile Methods", "category": "Delivery", "description": "Work in short iterations with frequent feedback.", "roles_needing": ["J003", "J004"]},
+  {"id": "S14", "name": "Customer Support", "category": "Service", "description": "Resolve customer issues with empathy and clear follow-through.", "roles_needing": ["J005"]},
+  {"id": "S15", "name": "Technical Writing", "category": "Communication", "description": "Write precise documentation and knowledge-base articles.", "roles_needing": ["J005"]}
+]
